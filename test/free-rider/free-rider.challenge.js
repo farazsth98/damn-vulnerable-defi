@@ -104,7 +104,10 @@ describe('[Challenge] Free Rider', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        const attackerContract = 
+            await (await ethers.getContractFactory('MarketplaceAttacker', attacker)).deploy();
+        
+        await attackerContract.exploit();
     });
 
     after(async function () {
