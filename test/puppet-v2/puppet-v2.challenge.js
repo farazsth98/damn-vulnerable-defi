@@ -85,8 +85,8 @@ describe('[Challenge] Puppet v2', function () {
         const attackerContract = await PuppetV2AttackerFactory.deploy();
 
         // Transfer most of our ETH and all of our tokens to the attackerContract
-        await attacker.sendTransaction({to: attackerContract.address, value: ethers.utils.parseEther('19')});
-        expect(await ethers.provider.getBalance(attackerContract.address)).to.eq(ethers.utils.parseEther('19'));
+        await attacker.sendTransaction({to: attackerContract.address, value: ethers.utils.parseUnits('1993', 16)});
+        expect(await ethers.provider.getBalance(attackerContract.address)).to.eq(ethers.utils.parseUnits('1993', 16));
 
         await this.token.connect(attacker).transfer(attackerContract.address, ATTACKER_INITIAL_TOKEN_BALANCE);
         expect(await this.token.balanceOf(attackerContract.address)).to.be.eq(ATTACKER_INITIAL_TOKEN_BALANCE);
